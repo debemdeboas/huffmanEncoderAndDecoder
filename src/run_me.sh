@@ -4,7 +4,6 @@ currentver="$(g++ -dumpversion)"
 requiredver="6"
 
 if [ "$(printf '%s\n' "$requiredver" "$currentver" | sort -V | head -n1)" = "$requiredver" ]; then
-	tr -d '\015' <king_james.txt >king_james_UNIX.txt
 	mkdir obj
 	g++ -pthread -std=c++17 -O -Wall -c Node.cpp -o obj/Node.o
 	g++ -pthread -std=c++17 -O -Wall -c HuffmanUtils.cpp -o obj/HuffmanUtils.o
