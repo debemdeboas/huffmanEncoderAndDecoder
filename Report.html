@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Huffman-based Text Encoder and Decoder</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="huffman-based-text-encoder-and-decoder">Huffman-based Text Encoder and Decoder</h1>
+<p>Home of a simple Huffman-based encoder and decoder.</p>
+<h2 id="why">Why</h2>
+<p>This project was requested by <a href="https://www.linkedin.com/in/diegovnoble/">Professor Diego V. Noble</a> in my BCompSc university course.</p>
+<h2 id="the-project">The project</h2>
+<p>Given the King James Bible, encoded in ASCII, run the encoder.<br>
+The encoder will create a new file, <code>king_james_ENC</code> (no extension), with a one-line header containing the character decoding table and the encoded text.
+The decoder reads this file and uses the decoding table to decode the contents of the encoded file, saving it in <code>king_james.txt</code>.</p>
+<p>I used a <a href="https://en.cppreference.com/w/cpp/container/priority_queue">Priority Queue</a> for the final version, but I also made a version that uses a <a href="https://en.cppreference.com/w/cpp/container/vector">Vector</a>.
+This was done to emphasize the difference in execution time between the two data structures.</p>
+<p>Using a priority queue, we have close to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlog(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> in complexity.
+Using a vector, we have <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> complexity.</p>
+<h2 id="execution-times">Execution times</h2>
+<p>The program was executed 20 times, half of which used vectors and the other half used a priority queue to build the Huffman Tree.</p>
+<p>It's worth mentioning that the file I used (king_james.txt) is around 4MiB and 100224 (one hundred thousand two hundred twenty-four) lines, which resulted in fake results due to the small elapsed times (resulting in an also small standard deviation). The results may have been tainted by random function calls by the processor (e.g. background processes).</p>
+<p>In order to get more accurate results, this program should be run using a bigger text file (e.g. the <a href="https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia">Wikipedia Front Page</a>).</p>
+<h3 id="executing-using-a-vector">Executing using a vector</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Execution no.</th>
+<th style="text-align:center">Elapsed time (in microseconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">194</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">188</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">188</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">186</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">189</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">188</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">188</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">194</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">187</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">194</td>
+</tr>
+<tr>
+<td style="text-align:center">sum</td>
+<td style="text-align:center">189.6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="executing-using-a-priority-queue-min-heap">Executing using a Priority Queue (Min Heap)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Execution no.</th>
+<th style="text-align:center">Elapsed time (in microseconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">24</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">27</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">28</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">27</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">28</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">27</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">28</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">29</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">28</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">28</td>
+</tr>
+<tr>
+<td style="text-align:center">sum</td>
+<td style="text-align:center">27.4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="results">Results</h3>
+<p>After 10 executions each:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Data Structure</th>
+<th style="text-align:center">Elapsed Time (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Vector</td>
+<td style="text-align:center">189.6 microseconds (0.0001896 seconds)</td>
+</tr>
+<tr>
+<td style="text-align:center">Priority Queue</td>
+<td style="text-align:center">27.4 microseconds  (0.0000274 seconds)</td>
+</tr>
+</tbody>
+</table>
+<p>Even with tainted results, it's clear to see that using a priority queue is much faster than using a std::vector.</p>
+
+    </body>
+    </html>
